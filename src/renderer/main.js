@@ -18,6 +18,10 @@ Vue.prototype.$db = db
 Vue.http = Vue.prototype.$http = axios
 Vue.config.productionTip = false
 
+let webFrame = require('electron').webFrame
+webFrame.setVisualZoomLevelLimits(1, 1)
+webFrame.setLayoutZoomLevelLimits(0, 0)
+
 /* eslint-disable no-new */
 new Vue({
   components: { App },
