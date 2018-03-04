@@ -1,6 +1,6 @@
-# minesweeper
+# Minesweeper
 
-> An electron-vue project
+> 2018 Feb DSE 730 Desktop Application Development
 
 #### Build Setup
 
