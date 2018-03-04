@@ -354,7 +354,8 @@
         let openedCount = 0
         for (let i = 0; i < this.currentGame.rows; i++) {
           for (let j = 0; j < this.currentGame.cols; j++) {
-            if (this.gameField[i][j].isOpened) { openedCount++ }
+            let col = this.gameField[i][j]
+            if (col.isOpened && col.value != 'mine') { openedCount++ }
           }
         }
         return openedCount
