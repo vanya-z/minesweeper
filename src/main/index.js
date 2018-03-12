@@ -1,5 +1,8 @@
 import { app, BrowserWindow, Menu } from 'electron'
+const {systemPreferences} = require('electron')
 
+systemPreferences.setUserDefault('NSDisabledDictationMenuItem', 'boolean', true)
+systemPreferences.setUserDefault('NSDisabledCharacterPaletteMenuItem', 'boolean', true)
 /**
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
@@ -7,12 +10,9 @@ import { app, BrowserWindow, Menu } from 'electron'
 if (process.env.NODE_ENV !== 'development') {
   global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
 }
-  
-const menuTemplate = []
-const menu = Menu.buildFromTemplate(menuTemplate)
-Menu.setApplicationMenu(menu)
 
 let mainWindow
+
 const winURL = process.env.NODE_ENV === 'development'
   ? `http://localhost:9080`
   : `file://${__dirname}/index.html`
@@ -22,12 +22,13 @@ function createWindow () {
    * Initial window options
    */
   mainWindow = new BrowserWindow({
+    width: 0,
     height: 0,
     useContentSize: true,
-    width: 0,
     resizable: false,
     fullscreen: false,
-    fullscreenable: false
+    fullscreenable: false,
+    backgroundColor: '#f2f2f2'
   })
 
   mainWindow.loadURL(winURL)
@@ -37,7 +38,51 @@ function createWindow () {
   })
 }
 
-app.on('ready', createWindow)
+const menuTemplate = [
+  {
+    label: 'Edit',
+    submenu: [
+      {
+        label: 'New',
+        click () { mainWindow.webContents.send('new') }
+      },
+      {type: 'separator'},
+      {
+        label: 'Beginner',
+        click () { mainWindow.webContents.send('new', 0) }
+      },
+      {
+        label: 'Intermediate',
+        click () { mainWindow.webContents.send('new', 1) }
+      },
+      {
+        label: 'Expert',
+        click () { mainWindow.webContents.send('new', 2) }
+      },
+      {
+        label: 'Custom...',
+        click () { mainWindow.webContents.send('custom') }
+      },
+      {type: 'separator'},
+      {
+        label: 'TOP Results',
+        click () { mainWindow.webContents.send('statistics') }
+      },
+      {type: 'separator'},
+      {
+        label: 'Quit',
+        role: 'quit'
+      }
+    ]
+  }
+]
+
+const menu = Menu.buildFromTemplate(menuTemplate)
+
+app.on('ready', () => {
+  createWindow()
+  Menu.setApplicationMenu(menu)
+})
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
