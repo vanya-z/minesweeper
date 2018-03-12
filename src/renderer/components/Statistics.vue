@@ -20,7 +20,7 @@
 <script>
 
   export default {
-    name: 'game-statistics',
+    name: 'statistics',
     props: ['gameSets'],
     created () {
       require('electron').remote.getCurrentWindow().setSize(400, 400)

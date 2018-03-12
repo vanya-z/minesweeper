@@ -24,7 +24,7 @@
 
 <script>
   export default {
-    name: 'game-custom-form',
+    name: 'form-custom-game',
     props: [
       'game'
     ],

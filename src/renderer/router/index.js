@@ -12,18 +12,18 @@ export default new Router({
     },
     {
       path: '/statistics/:gameId',
-      name: 'game-statistics',
-      component: require('@/components/GameStatistics').default
+      name: 'statistics',
+      component: require('@/components/Statistics').default
     },
     {
       path: '/custom',
-      name: 'game-custom-form',
-      component: require('@/components/GameCustomForm').default
+      name: 'form-custom-game',
+      component: require('@/components/FormCustomGame').default
     },
     {
       path: '/winner/game/:gameId/time/:time',
-      name: 'game-winner-form',
-      component: require('@/components/GameWinnerForm').default,
+      name: 'form-winner',
+      component: require('@/components/FormWinner').default,
       props: true
     },
     {

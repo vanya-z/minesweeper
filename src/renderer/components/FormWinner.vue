@@ -13,7 +13,7 @@
 
 <script>
   export default {
-    name: 'game-winner-form',
+    name: 'form-winner',
     data () {
       return {
         name: null
